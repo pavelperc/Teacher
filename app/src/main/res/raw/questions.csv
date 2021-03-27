@@ -1,0 +1,307 @@
+category,english,russian
+Тело человека,man,"человек, мужчина"
+,woman,женщина
+,body,тело
+,head,голова
+,shoulder,плечо
+,arm,рука
+,hand,рука (кисть)
+,elbow,локоть
+,chest,грудная клетка
+,stomach,"живот, желудок"
+,back,спина
+,bottom,зад
+,thigh,бедро
+,waist,талия
+,leg,нога
+,knee,колено
+,calf (calves),икра (икры ног)
+,foot (feet),ступня (ступни)
+,ankle,лодыжка
+,heel,пятка
+,thumb,большой палец
+,ring finger,безымянный палец
+,middle finger,средний палец
+,index finger,указательный палец
+,little finger,мизинец
+,fingernail,ноготь
+,shin,голень
+,toe,палец ноги
+,toenail,ноготь на пальце ноги
+,neck,шея
+Внешность и характер,appearance,внешность
+,thin,худой
+,fat,толстый
+,tall,высокий
+,short,невысокий
+,weak,слабый
+,strong,сильный
+,slim,стройный
+,plump,полный
+,skinny,тощий
+,old,старый
+,young,молодой
+,hairy,волосатый
+,bald,лысый
+,curly,кудрявый
+,straight,прямые
+,pretty,красивая
+,handsome,красивый
+,ugly,уродливый
+,character,характер
+,clever,умный
+,talented,талантливый
+,active,активный
+,creative,творческий
+,energetic,энергичный
+,stupid,глупый
+,considerate,внимательный
+,cruel,жестокий
+,unkind,злой
+,polite,вежливый
+Цвета,aquamarine,аквамарин
+,beige,бежевый
+,"snowy, snow-white",белоснежный
+,white,белый
+,turquoise,бирюзовый
+,pale,бледный
+,"wine red, bordeaux, claret red",бордовый
+,bronze,бронзовый
+,yellow green,желто-зеленый
+,yellow,желтый
+,pearl,жемчужный
+,green,зеленый
+,goldenrod,золотистый
+,"gold, golden",золотой
+,emerald,изумрудный
+,indigo,индиго
+,firebrick,кирпичный
+,coral,коралловый
+,brown,коричневый
+,red,красный
+,cream,кремовый
+,azure,лазурный
+,lime green,лимонно-зеленый
+,lemon,лимонный
+,salmon,лососевый
+,raspberry,малиновый
+,copper,медный
+,honeydew,медовый
+,aqua,морская волна
+,sky blue,небесно-голубой
+Действия и движения,action,действие
+,walk,"идти, ходить"
+,run,"бежать, бегать"
+,march,маршировать
+,tiptoe,ходить на цыпочках
+,crawl,ползать
+,drag,"тянуть, тащить"
+,pull,"тянуть, тащить"
+,push,толкать; пихать
+,jump,"прыгать, скакать"
+,skip,"прыгать, скакать"
+,leap,"прыжок, скачок"
+,hop,подпрыгивать
+,hit,ударять (по чему-л.)
+,slap,"шлепать, хлопать"
+,kick,удар ногой
+,stretch,"тянуться, вытягиваться"
+,lift,"поднятие, поднимать"
+,put,"класть, ставить"
+,lean,"прислонять, опирать"
+,dive,нырять
+,sit,сидеть; садиться
+,squat,приседание
+,bend,сгибаться
+,hold,держать; обнимать
+,carry,"нести, носить"
+,catch,ловить; поймать
+,throw,"бросать, кидать"
+,slap,"шлепать, хлопать"
+,lift,"поднятие, поднимать"
+,drag,"тянуть, тащить"
+Еда,food,"питание, еда"
+,ham,ветчина
+,sausage,"колбаса, сосиска"
+,meat,мясо
+,egg,яйцо
+,pizza,пицца
+,soup,суп
+,bread,хлеб
+,milk,молоко
+,porridge,каша
+,flour,мука
+,garlic,чеснок
+,salad,салат
+,fish,рыба
+,chicken,цыплёнок
+,pork,свинина
+,beef,говядина
+,steak,"бифштекс, стейк"
+,spice,"специя, пряность"
+,butter,масло
+,potato,картофель
+,macaroni,макароны
+,cheese,сыр
+,rice,рис
+,pasta,паста
+,ketchup,кетчуп
+,sauce,соус
+,mayonnaise,майонез
+,bean,фасоль
+,pepper,перец
+,salt,соль
+Город,town,город
+,city,город (большой)
+,building,"здание, строение"
+,skyscraper,небоскреб
+,palace,дворец
+,bank,банк
+,bookstore,книжный магазин
+,bus stop,автобусная остановка
+,confectionery,кондитерская
+,bakery,"булочная, пекарня"
+,coffee shop,кафе
+,cafe,кафе
+,restaurant,ресторан
+,drugstore,аптека
+,pharmacy,аптека
+,dentist’s office,зубной кабинет
+,doctor’s office,врачебный кабинет
+,hospital,больница
+,flower’s shop,цветочный магазин
+,gas station,автозаправочная станция
+,library,библиотека
+,theatre,театр
+,cinema,кинотеатр
+,museum,музей
+,church,церковь
+,park,парк
+,pool,бассейн
+,post office,почта
+,hotel,гостиница
+,university,университет
+,school,школа
+Животные,animal,животное
+,bear,медведь
+,fox,лиса
+,rabbit,заяц
+,wolf,волк
+,pig,кабан
+,deer,олень
+,moose,лось
+,donkey,осел
+,buffalo,зубр
+,camel,верблюд
+,giraffe,жираф
+,hippopotamus,бегемот
+,zebra,зебра
+,kangaroo,кенгуру
+,elephant,слон
+,llama,лама
+,horse,"конь, лошадь"
+,foal,жеребенок
+,armadillo,броненосец
+,leopard,леопард
+,lion,лев
+,tiger,тигр
+,bison,бизон
+,koala,коала
+,hyena,гиена
+,panda,панда
+,rhinoceros,носорог
+,monkey,обезьяна
+,gorilla,горилла
+,chimpanzee,шимпанзе
+Одежда,clothes,одежда
+,blouse,блузка
+,skirt,юбка
+,dress,платье
+,shirt,рубашка
+,trousers,брюки
+,socks,носки
+,stockings,чулки
+,tights,колготки
+,swimsuit,купальник
+,underpants,нижнее белье
+,sweater,свитер
+,cardigan,шерстяная кофта
+,jersey,вязаный свитер
+,suit,костюм
+,jeans,джинсы
+,shorts,шорты
+,T-shirt,футболка
+,cap,кепка
+,hat,шляпа
+,shoes,туфли
+,boots,ботинки
+,sneakers,кроcсовки
+,slippers,тапочки
+,sandals,сандали
+,jacket,куртка
+,coat,пальто
+,raincoat,плащ
+,fur coat,шуба
+,belt,ремень
+,tie,галстук
+Аэропорт,airport,аэропорт
+,airplane,самолет
+,wing,крыло
+,tail,хвост
+,cockpit,кабина (самолета)
+,cabin,салон (самолета)
+,fuselage,"корпус, фюзеляж"
+,undercarriage,шасси
+,lavatory,туалет
+,window,окно
+,aisle,проход
+,seat,"сиденье, место"
+,armrest,подлокотник
+,ticket,билет
+,suitcase,чемодан
+,backpack,рюкзак
+,baggage,багаж
+,life vest,спасательный жилет
+,carry-on,ручная кладь
+,flight,рейс
+,takeoff,взлет
+,landing,"посадка, приземление"
+,runway,взлетно-посадочная полоса
+,gate,вход / выход (в аэропорту)
+,boarding,посадка (на борт)
+,passenger,пассажир
+,passport,паспорт
+,visa,виза
+,customs,таможня
+,terminal,терминал
+,schedule,расписание
+Дом,house,дом
+,apartment,квартира
+,room,комната; помещение
+,bathroom,ванная комната
+,balcony,балкон
+,bedroom,спальня
+,closet,шкаф
+,dining room,столовая
+,doorbell,дверной звонок
+,door,дверь
+,upstairs,верхний этаж
+,downstairs,подвальный этаж
+,roof,"крыша, кровля"
+,window,окно
+,garage,гараж
+,hall,зал
+,kitchen,кухня
+,hallway,коридор
+,living room,гостиная
+,mailbox,почтовый ящик
+,shower,душ
+,stairs,лестница
+,toilet,"туалет, унитаз"
+,sofa,диван
+,couch,"диван, кушетка"
+,armchair,кресло
+,chair,стул
+,floor,пол
+,rug,"ковёр, коврик"
+,table,стол
