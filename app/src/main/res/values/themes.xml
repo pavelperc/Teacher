@@ -10,8 +10,8 @@
     </style>
 
     <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
-        <item name="titleMarginStart">24dp</item>
         <item name="titleTextAppearance">@style/Toolbar.Title</item>
+        <item name="navigationIconTint">?attr/colorOnPrimary</item>
     </style>
     <style name="Toolbar.Title" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">24sp</item>

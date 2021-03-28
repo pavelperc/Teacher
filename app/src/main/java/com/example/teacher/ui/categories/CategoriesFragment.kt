@@ -15,7 +15,7 @@ class CategoriesFragment : Fragment() {
 
     private val viewModel by viewModels<CategoriesViewModel>()
 
-    private val categoriesAdapter by lazy { CategoriesAdapter(viewModel.categories) }
+    private val categoriesAdapter = CategoriesAdapter()
 
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
@@ -29,7 +29,7 @@ class CategoriesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        categoriesAdapter.categories = viewModel.categories
         binding.recyclerView.apply {
             post { // after width is evaluated
                 val columnsCount = max(2, width / dip(200))

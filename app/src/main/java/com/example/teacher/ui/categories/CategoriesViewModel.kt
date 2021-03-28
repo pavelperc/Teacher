@@ -6,6 +6,7 @@ import com.example.teacher.data.CategoriesRepository
 class CategoriesViewModel : ViewModel() {
 
     data class CategoryWithStats(
+        val id: Int,
         val category: String,
         val percentage: String
     )
@@ -16,6 +17,6 @@ class CategoriesViewModel : ViewModel() {
 
     init {
         categories = categoriesRepository.getCategories()
-            .map { CategoryWithStats(it.name, "") }
+            .map { CategoryWithStats(it.id, it.name, "") }
     }
 }

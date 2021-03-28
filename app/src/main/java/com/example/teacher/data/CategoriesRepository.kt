@@ -14,6 +14,8 @@ class CategoriesRepository {
 
     fun getCategories() = categoriesCache ?: loadCategories().also { categoriesCache = it }
 
+    fun getCategoryById(categoryId: Int) = getCategories()[categoryId]
+
     private fun loadCategories(): List<Category> {
         val context = TeacherApplication.get()
         val inputStream = context.resources.openRawResource(R.raw.questions)
@@ -30,8 +32,11 @@ class CategoriesRepository {
                 }
                 currentCategory
             }
-            .entries.map { (name, questions) ->
-                Category(name, questions.map { (_, eng, rus) -> Question(eng, rus) })
+            .entries.mapIndexed { index, (name, questionRows) ->
+                val questions = questionRows.mapIndexed { questionIndex, (_, eng, rus) ->
+                    Question(questionIndex, eng, rus)
+                }
+                Category(index, name, questions)
             }
     }
 }

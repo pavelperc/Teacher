@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">English Teacher</string>
+    <string name="swap_language">Swap language</string>
+    <string name="button_start_quiz">Start</string>
+    <string name="topics_title">Topics</string>
+    <string name="category_learned_stats">%d/%d learned</string>
 </resources>
