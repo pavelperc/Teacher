@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">English Teacher</string>
+    <string name="swap_language">Переключить язык</string>
+    <string name="button_start_quiz">Начать</string>
+    <string name="topics_title">Темы</string>
+    <string name="category_learned_ratio">%d / %d выучено</string>
+    <string name="quiz_correct">Верно!</string>
+    <string name="quiz_wrong">Неверно!</string>
+    <string name="alert_stop_quiz">Остановить викторину?</string>
+    <string name="alert_reset_questions_title">Сбросить выученные вопросы?</string>
+    <string name="alert_reset_questions_message">Все вопросы выучены.</string>
+</resources>
