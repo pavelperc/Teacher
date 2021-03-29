@@ -100,8 +100,8 @@ class QuizViewModel : ViewModel() {
     private fun answer(answer: QuestionWithStats) {
         val isCorrect = answer == currentTask.question
         _viewState.value = QuizViewState.Answered(
-            question = currentTask.question.question.run { if (isLanguageSwapped) english else russian },
-            answer = answer.question.run { if (isLanguageSwapped) russian else english },
+            question = currentTask.question.question.run { if (isLanguageSwapped) russian else english },
+            answer = answer.question.run { if (isLanguageSwapped) english else russian },
             isCorrect = isCorrect
         )
         viewModelScope.launch {
@@ -150,11 +150,11 @@ class QuizViewModel : ViewModel() {
 
     private fun updateQuizQuestion() {
         _viewState.value = QuizViewState.Question(
-            question = currentTask.question.question.run { if (isLanguageSwapped) english else russian },
-            answer1 = currentTask.answer1.question.run { if (isLanguageSwapped) russian else english },
-            answer2 = currentTask.answer2.question.run { if (isLanguageSwapped) russian else english },
-            answer3 = currentTask.answer3.question.run { if (isLanguageSwapped) russian else english },
-            answer4 = currentTask.answer4.question.run { if (isLanguageSwapped) russian else english }
+            question = currentTask.question.question.run { if (isLanguageSwapped) russian else english },
+            answer1 = currentTask.answer1.question.run { if (isLanguageSwapped) english else russian },
+            answer2 = currentTask.answer2.question.run { if (isLanguageSwapped) english else russian },
+            answer3 = currentTask.answer3.question.run { if (isLanguageSwapped) english else russian },
+            answer4 = currentTask.answer4.question.run { if (isLanguageSwapped) english else russian }
         )
     }
 }
