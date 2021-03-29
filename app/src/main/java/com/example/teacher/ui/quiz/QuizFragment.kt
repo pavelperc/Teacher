@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -38,15 +39,7 @@ class QuizFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.toolbar.setNavigationOnClickListener {
-            AlertDialog.Builder(requireContext())
-                .setTitle(R.string.alert_stop_quiz)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    findNavController().navigateUp()
-                }
-                .setNegativeButton(android.R.string.cancel) { dialog, _ ->
-                    dialog.cancel()
-                }
-                .show()
+            exitQuiz()
         }
 
         lifecycleScope.launchWhenStarted {
@@ -92,5 +85,22 @@ class QuizFragment : Fragment() {
                 binding.executePendingBindings()
             }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                exitQuiz()
+            }
+        })
+    }
+
+    private fun exitQuiz() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.alert_stop_quiz)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                findNavController().navigateUp()
+            }
+            .setNegativeButton(android.R.string.cancel) { dialog, _ ->
+                dialog.cancel()
+            }
+            .show()
     }
 }
