@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.widget.LinearLayout" />
+
+        <import type="android.view.View" />
+
+        <import type="com.example.teacher.ui.quiz.QuizViewModel.QuizViewState.Question" />
+
+        <import type="com.example.teacher.ui.quiz.QuizViewModel.QuizViewState.Answered" />
+
+        <variable
+            name="isVerticalOrientation"
+            type="boolean" />
+
+        <variable
+            name="viewModel"
+            type="com.example.teacher.ui.quiz.QuizViewModel" />
+
+        <variable
+            name="quizViewState"
+            type="com.example.teacher.ui.quiz.QuizViewModel.QuizViewState" />
+
+        <variable
+            name="headerViewState"
+            type="com.example.teacher.ui.quiz.QuizViewModel.HeaderViewState" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.quiz.QuizFragment">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_cross">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/Toolbar.Title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:text="@{headerViewState.categoryName}"
+                    tools:text="Some very very long long title" />
+
+                <TextView
+                    style="@style/Toolbar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@{headerViewState.taskRatioStr}"
+                    tools:text="1 / 10" />
+            </LinearLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <LinearLayout
+            android:id="@+id/layout_main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="@{isVerticalOrientation ? LinearLayout.VERTICAL : LinearLayout.HORIZONTAL}"
+            tools:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="32dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="?attr/colorPrimary"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/text_view_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="30sp"
+                    tools:text="Some very very long question" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="24dp"
+                    android:columnCount="2"
+                    android:orientation="horizontal"
+                    android:visibility="@{quizViewState instanceof Question ? View.VISIBLE : View.GONE}"
+                    tools:visibility="gone">
+
+                    <TextView
+                        android:onClick="@{() -> viewModel.answer1()}"
+                        android:id="@+id/text_view_answer1"
+                        style="@style/QuizCard"
+                        tools:text="Some very very very long answer" />
+
+                    <TextView
+                        android:onClick="@{() -> viewModel.answer2()}"
+                        android:id="@+id/text_view_answer2"
+                        style="@style/QuizCard"
+                        tools:text="Some very long answer" />
+
+                    <TextView
+                        android:onClick="@{() -> viewModel.answer3()}"
+                        android:id="@+id/text_view_answer3"
+                        style="@style/QuizCard"
+                        tools:text="Some answer" />
+
+                    <TextView
+                        android:onClick="@{() -> viewModel.answer4()}"
+                        android:id="@+id/text_view_answer4"
+                        style="@style/QuizCard"
+                        tools:text="Answer" />
+
+                </GridLayout>
+
+                <FrameLayout
+                    android:onClick="@{() -> viewModel.goNext()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="32dp"
+                    android:background="@drawable/bg_round_rectangle"
+                    android:visibility="@{quizViewState instanceof Answered ? View.VISIBLE : View.GONE}"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/text_view_answered"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:gravity="start"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="24sp"
+                        tools:text="Some very very long long long answer" />
+
+                    <TextView
+                        android:id="@+id/text_view_verdict"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/quiz_correct"
+                        android:textColor="@color/dark_green"
+                        android:textSize="44sp" />
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center|bottom"
+                        android:layout_margin="16dp"
+                        android:src="@drawable/ic_forward"
+                        app:tint="?attr/colorPrimary" />
+                </FrameLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.teacher.data.CategoriesRepository
 import com.example.teacher.domain.CategoryWithStats
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -39,6 +38,8 @@ class QuestionsViewModel : ViewModel() {
 
     private val categoryWithStats = MutableStateFlow<CategoryWithStats?>(null)
 
+    val categoryId get() = categoryWithStats.value?.id ?: throw IllegalStateException("no category")
+
     val categoryViewState = categoryWithStats
         .filterNotNull()
         .map {
@@ -54,28 +55,19 @@ class QuestionsViewModel : ViewModel() {
     private val _questionViewStates = MutableStateFlow<List<QuestionViewState>>(emptyList())
     val questionViewStates = _questionViewStates.asStateFlow()
 
-    private var observeCategoryJob: Job? = null
-        private set(value) {
-            field?.cancel()
-            field = value
-        }
-
     fun initWithCategoryId(categoryId: Int) {
-        observeCategoryJob = viewModelScope.launch {
+        if (categoryWithStats.value != null) return
+
+        viewModelScope.launch {
             categoriesRepository.observeCategoryWithStats(categoryId).collect {
                 categoryWithStats.value = it
                 updateQuestionViewStates()
             }
         }
-
-        viewModelScope.launch {
-            categoryWithStats.collect {
-                updateQuestionViewStates()
-            }
-        }
     }
 
-    private var isLanguageSwapped = false
+    var isLanguageSwapped = false
+        private set
 
     fun swapLanguage() {
         isLanguageSwapped = !isLanguageSwapped
@@ -107,7 +99,14 @@ class QuestionsViewModel : ViewModel() {
         } ?: emptyList()
     }
 
-    fun start() {
+    val hasNotLearnedQuestions
+        get() = categoryWithStats.value?.questions?.count { it.stats.correctCount == 0 }
+            ?.let { it > 0 } ?: true
 
+    suspend fun resetLearnedQuestions() {
+        val categoryId = categoryWithStats.value?.id ?: return
+        viewModelScope.launch {
+            categoriesRepository.deleteAllInCategory(categoryId)
+        }
     }
 }

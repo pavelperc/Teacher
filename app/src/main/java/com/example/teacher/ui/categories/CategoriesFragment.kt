@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.teacher.databinding.FragmentCategoriesBinding
 import com.example.teacher.utils.dip
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import kotlin.math.max
 
 class CategoriesFragment : Fragment() {
@@ -32,7 +31,7 @@ class CategoriesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             viewModel.categoryDescriptions.collect { categoryDescriptions ->
                 categoriesAdapter.categoryDescriptions = categoryDescriptions
             }

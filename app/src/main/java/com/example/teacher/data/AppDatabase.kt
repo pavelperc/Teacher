@@ -18,17 +18,7 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
         private var instance: AppDatabase? = null
 
-        fun get() = instance ?: buildDatabase().also {
-            instance = it
-            it.questionStatsDao().apply { // prepopulate for debug
-                GlobalScope.launch(Dispatchers.IO) {
-                    insertOrUpdate(QuestionStats(0, 0, 1, 0))
-                    insertOrUpdate(QuestionStats(0, 1, 2, 0))
-                    insertOrUpdate(QuestionStats(0, 2, 0, 2))
-                    insertOrUpdate(QuestionStats(0, 3, 2, 2))
-                }
-            }
-        }
+        fun get() = instance ?: buildDatabase().also { instance = it }
 
         private fun buildDatabase() =
             Room.databaseBuilder(

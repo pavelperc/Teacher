@@ -7,22 +7,40 @@
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.example.teacher.ui.categories.CategoriesFragment"
-        android:label="CategoriesFragment" >
+        android:label="CategoriesFragment">
         <action
             android:id="@+id/action_open_category"
             app:destination="@id/questionsFragment"
             app:enterAnim="@anim/slide_left"
             app:exitAnim="@anim/wait_anim"
             app:popEnterAnim="@anim/wait_anim"
-            app:popExitAnim="@anim/slide_right"
-            />
+            app:popExitAnim="@anim/slide_right" />
     </fragment>
     <fragment
         android:id="@+id/questionsFragment"
         android:name="com.example.teacher.ui.questions.QuestionsFragment"
-        android:label="QuestionsFragment" >
+        android:label="QuestionsFragment">
         <argument
             android:name="categoryId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_start_quiz"
+            app:destination="@id/quizFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.example.teacher.ui.quiz.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz">
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+        <argument
+            android:name="isLanguageSwapped"
+            app:argType="boolean" />
     </fragment>
 </navigation>

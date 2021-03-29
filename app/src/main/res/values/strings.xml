@@ -4,4 +4,9 @@
     <string name="button_start_quiz">Start</string>
     <string name="topics_title">Topics</string>
     <string name="category_learned_ratio">%d/%d learned</string>
+    <string name="quiz_correct">Correct!</string>
+    <string name="quiz_wrong">Wrong!</string>
+    <string name="alert_stop_quiz">Stop quiz?</string>
+    <string name="alert_reset_questions_title">Reset learned questions?</string>
+    <string name="alert_reset_questions_message">All questions are learned.</string>
 </resources>

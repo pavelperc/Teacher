@@ -71,4 +71,12 @@ class CategoriesRepository {
                 )
             }
         }
+
+    suspend fun updateStats(questionStats: QuestionStats) {
+        questionStatsDao.insertOrUpdate(questionStats)
+    }
+
+    suspend fun deleteAllInCategory(categoryId: Int) {
+        questionStatsDao.deleteAllInCategory(categoryId)
+    }
 }
