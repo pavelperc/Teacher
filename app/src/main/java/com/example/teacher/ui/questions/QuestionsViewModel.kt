@@ -2,6 +2,7 @@ package com.example.teacher.ui.questions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.teacher.TeacherApplication
 import com.example.teacher.data.CategoriesRepository
 import com.example.teacher.domain.CategoryWithStats
 import kotlinx.coroutines.flow.*
@@ -55,6 +56,19 @@ class QuestionsViewModel : ViewModel() {
     private val _questionViewStates = MutableStateFlow<List<QuestionViewState>>(emptyList())
     val questionViewStates = _questionViewStates.asStateFlow()
 
+    private val sharedPreferences = TeacherApplication.preferences()
+
+    var isLanguageSwapped = sharedPreferences.getBoolean("is_language_swapped", false)
+        private set(value) {
+            field = value
+            sharedPreferences.edit().putBoolean("is_language_swapped", value).apply()
+        }
+
+    fun swapLanguage() {
+        isLanguageSwapped = !isLanguageSwapped
+        updateQuestionViewStates()
+    }
+
     fun initWithCategoryId(categoryId: Int) {
         if (categoryWithStats.value != null) return
 
@@ -65,15 +79,6 @@ class QuestionsViewModel : ViewModel() {
             }
         }
     }
-
-    var isLanguageSwapped = false
-        private set
-
-    fun swapLanguage() {
-        isLanguageSwapped = !isLanguageSwapped
-        updateQuestionViewStates()
-    }
-
 
     private fun updateQuestionViewStates() {
         _questionViewStates.value = categoryWithStats.value?.questions?.map { (question, stats) ->
