@@ -6,8 +6,8 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="questionWithStats"
-            type="com.example.teacher.ui.questions.QuestionsViewModel.QuestionWithStats" />
+            name="questionViewState"
+            type="com.example.teacher.ui.questions.QuestionsViewModel.QuestionViewState" />
     </data>
 
     <LinearLayout
@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@{questionWithStats.question}"
+                android:text="@{questionViewState.question}"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="22sp"
                 tools:text="Some question" />
@@ -40,7 +40,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:gravity="end"
-                android:text="@{questionWithStats.answer}"
+                android:text="@{questionViewState.answer}"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="22sp"
                 tools:text="Some long answer" />
@@ -60,7 +60,7 @@
                 android:layout_gravity="end"
                 android:src="@drawable/ic_cross"
                 app:tint="@color/red"
-                android:visibility="@{questionWithStats.failed ? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{questionViewState.failed ? View.VISIBLE : View.INVISIBLE}"
                 tools:visibility="invisible" />
 
             <ImageView
@@ -69,7 +69,7 @@
                 android:layout_gravity="end"
                 android:src="@drawable/ic_check"
                 app:tint="@color/dark_green"
-                android:visibility="@{questionWithStats.learned ? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{questionViewState.learned ? View.VISIBLE : View.INVISIBLE}"
                 tools:visibility="visible" />
         </FrameLayout>
 

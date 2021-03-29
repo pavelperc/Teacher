@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teacher.databinding.ItemCategoryBinding
+import com.example.teacher.domain.CategoryDescription
 
 class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
 
-    var categories: List<CategoriesViewModel.CategoryWithStats> = emptyList()
+    var categoryDescriptions: List<CategoryDescription> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -23,16 +24,17 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val categoryWithStats = categories[position]
-        holder.binding.categoryWithStats = categoryWithStats
+        val categoryDescription = categoryDescriptions[position]
+        holder.binding.description = categoryDescription
         holder.binding.executePendingBindings()
         holder.binding.cardView.setOnClickListener {
-            val action = CategoriesFragmentDirections.actionOpenCategory(categoryWithStats.id)
+            val action = CategoriesFragmentDirections
+                .actionOpenCategory(categoryDescription.categoryId)
             it.findNavController().navigate(action)
         }
     }
 
     override fun getItemCount(): Int {
-        return categories.size
+        return categoryDescriptions.size
     }
 }

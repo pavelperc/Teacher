@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.teacher.databinding.FragmentCategoriesBinding
 import com.example.teacher.utils.dip
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlin.math.max
 
 class CategoriesFragment : Fragment() {
@@ -29,9 +32,14 @@ class CategoriesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        categoriesAdapter.categories = viewModel.categories
+        lifecycleScope.launch {
+            viewModel.categoryDescriptions.collect { categoryDescriptions ->
+                categoriesAdapter.categoryDescriptions = categoryDescriptions
+            }
+        }
+
         binding.recyclerView.apply {
-            post { // after width is evaluated
+            post { // wait until width is evaluated
                 val columnsCount = max(2, width / dip(200))
                 layoutManager = GridLayoutManager(context, columnsCount)
                 adapter = categoriesAdapter

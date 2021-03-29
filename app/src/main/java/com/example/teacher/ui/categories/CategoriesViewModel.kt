@@ -5,18 +5,9 @@ import com.example.teacher.data.CategoriesRepository
 
 class CategoriesViewModel : ViewModel() {
 
-    data class CategoryWithStats(
-        val id: Int,
-        val category: String,
-        val percentage: String
-    )
+    private val categoriesRepository = CategoriesRepository()
 
-    val categoriesRepository = CategoriesRepository()
 
-    val categories: List<CategoryWithStats>
-
-    init {
-        categories = categoriesRepository.getCategories()
-            .map { CategoryWithStats(it.id, it.name, "") }
-    }
+    val categoryDescriptions
+        get() = categoriesRepository.observeCategoryDescriptions()
 }

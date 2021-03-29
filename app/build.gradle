@@ -58,4 +58,8 @@ dependencies {
 
     // csv parser
     implementation 'com.github.doyaaaaaken:kotlin-csv-jvm:0.15.1'
+
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
 }

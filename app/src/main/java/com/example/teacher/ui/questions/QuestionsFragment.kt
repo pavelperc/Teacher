@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.teacher.R
 import com.example.teacher.databinding.FragmentQuestionsBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -26,7 +25,7 @@ class QuestionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val categoryId = QuestionsFragmentArgs.fromBundle(requireArguments()).categoryId
-        viewModel.setCategoryId(categoryId)
+        viewModel.initWithCategoryId(categoryId)
 
         _binding = FragmentQuestionsBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
@@ -34,9 +33,6 @@ class QuestionsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // don't use data binding here, because it supports StateFlow only in alpha version
-
-        // toolbar.setupWithNavController() breaks the toolbar text and icon color, so don't use it
         binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
         val questionsAdapter = QuestionsAdapter()
@@ -46,24 +42,15 @@ class QuestionsFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.questionsWithStats.collect { questionsWithStats ->
-                questionsAdapter.questions = questionsWithStats
+            viewModel.questionViewStates.collect { questionViewStates ->
+                questionsAdapter.questionViewStates = questionViewStates
             }
         }
 
         lifecycleScope.launch {
-            viewModel.learnedCount.collect { learnedCount ->
-                binding.textViewLearned.text = getString(
-                    R.string.category_learned_stats,
-                    learnedCount, viewModel.questionsCount
-                )
-            }
-        }
-
-        lifecycleScope.launch {
-            viewModel.progressPercent.collect { percent ->
-                binding.textViewPercent.text = "$percent%"
-                binding.progressBar.progress = percent
+            viewModel.categoryViewState.collect {
+                binding.viewState = it
+                binding.executePendingBindings()
             }
         }
     }

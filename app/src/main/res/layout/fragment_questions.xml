@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.teacher.ui.questions.QuestionsViewModel" />
+        <variable
+            name="viewState"
+            type="com.example.teacher.ui.questions.QuestionsViewModel.CategoryViewState" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -27,7 +29,7 @@
                 app:layout_anchorGravity="center"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:navigationIcon="@drawable/ic_back"
-                app:title="@{viewModel.category.name}"
+                app:title="@{viewState.categoryName}"
                 tools:title="Some category" />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -58,6 +60,7 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/frameLayout"
+                        android:text="@{@string/category_learned_ratio(viewState.learnedCount, viewState.questionsCount)}"
                         tools:text="12/30 learned" />
 
                     <FrameLayout
@@ -70,13 +73,13 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ProgressBar
-                            android:id="@+id/progress_bar"
                             style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:background="@drawable/bg_progress_circle"
                             android:indeterminate="false"
                             android:progressDrawable="@drawable/bg_progress_circle_bar"
+                            android:progress="@{viewState.learnedPercent}"
                             tools:progress="65" />
 
                         <TextView
@@ -84,6 +87,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:text="@{viewState.learnedPercentStr}"
                             tools:text="65%"
                             android:textColor="@color/black"
                             android:textSize="24sp" />
@@ -105,6 +109,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:onClick="@{() -> viewModel.start()}"
                     android:nestedScrollingEnabled="false"
                     android:id="@+id/recycler_view_questions"
                     android:layout_width="match_parent"

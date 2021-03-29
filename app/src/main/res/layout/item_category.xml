@@ -2,10 +2,10 @@
 <layout>
 
     <data>
-
+<import type="android.view.View"/>
         <variable
-            name="categoryWithStats"
-            type="com.example.teacher.ui.categories.CategoriesViewModel.CategoryWithStats" />
+            name="description"
+            type="com.example.teacher.domain.CategoryDescription" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -36,7 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:text="@{categoryWithStats.percentage}"
+                android:visibility="@{description.learnedPercent > 0 ? View.VISIBLE : View.GONE}"
+                android:text="@{description.learnedPercentStr}"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="22sp"
                 tools:text="15%" />
@@ -46,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@{categoryWithStats.category}"
+                android:text="@{description.categoryName}"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="28sp"
                 tools:text="Some category" />

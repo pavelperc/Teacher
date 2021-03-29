@@ -8,7 +8,7 @@ import com.example.teacher.databinding.ItemQuestionBinding
 
 class QuestionsAdapter : RecyclerView.Adapter<QuestionsAdapter.ViewHolder>() {
 
-    var questions: List<QuestionsViewModel.QuestionWithStats> = emptyList()
+    var questionViewStates: List<QuestionsViewModel.QuestionViewState> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -23,13 +23,13 @@ class QuestionsAdapter : RecyclerView.Adapter<QuestionsAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val questionWithStats = questions[position]
-        holder.binding.questionWithStats = questionWithStats
+        val questionViewState = questionViewStates[position]
+        holder.binding.questionViewState = questionViewState
         holder.binding.executePendingBindings()
-        holder.binding.divider.isVisible = position != questions.size - 1
+        holder.binding.divider.isVisible = position != questionViewStates.size - 1
     }
 
     override fun getItemCount(): Int {
-        return questions.size
+        return questionViewStates.size
     }
 }

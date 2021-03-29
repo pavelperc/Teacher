@@ -1,54 +1,113 @@
 package com.example.teacher.ui.questions
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.teacher.data.CategoriesRepository
-import com.example.teacher.domain.entities.Category
+import com.example.teacher.domain.CategoryWithStats
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 class QuestionsViewModel : ViewModel() {
 
-    data class QuestionWithStats(
+    data class QuestionViewState(
         val question: String,
         val answer: String,
-        val failed: Boolean,
-        val learned: Boolean,
-    )
+        val status: QuestionStatus
+    ) {
+        val failed get() = status == QuestionStatus.FAILED
+        val learned get() = status == QuestionStatus.LEARNED
+    }
 
-    private val _learnedCount = MutableStateFlow(0)
-    val learnedCount = _learnedCount.asStateFlow()
+    enum class QuestionStatus {
+        NOT_STARTED, FAILED, LEARNED
+    }
 
-    val questionsCount get() = category.questions.size
+    data class CategoryViewState(
+        val categoryName: String,
+        val learnedCount: Int,
+        val questionsCount: Int,
+    ) {
+        val learnedPercent =
+            if (questionsCount == 0) 0
+            else learnedCount * 100 / questionsCount
 
-    private val _progressPercent = MutableStateFlow(0)
-    val progressPercent = _progressPercent.asStateFlow()
+        val learnedPercentStr = "$learnedPercent%"
+    }
 
     private val categoriesRepository = CategoriesRepository()
 
-    lateinit var category: Category
-        private set
+    private val categoryWithStats = MutableStateFlow<CategoryWithStats?>(null)
 
-    private val _questionsWithStats = MutableStateFlow(listOf<QuestionWithStats>())
-    val questionsWithStats = _questionsWithStats.asStateFlow()
+    val categoryViewState = categoryWithStats
+        .filterNotNull()
+        .map {
+            CategoryViewState(
+                categoryName = it.name,
+                learnedCount = it.learnedCount,
+                questionsCount = it.questionsCount
+            )
+        }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, CategoryViewState("", 0, 0))
+
+
+    private val _questionViewStates = MutableStateFlow<List<QuestionViewState>>(emptyList())
+    val questionViewStates = _questionViewStates.asStateFlow()
+
+    private var observeCategoryJob: Job? = null
+        private set(value) {
+            field?.cancel()
+            field = value
+        }
+
+    fun initWithCategoryId(categoryId: Int) {
+        observeCategoryJob = viewModelScope.launch {
+            categoriesRepository.observeCategoryWithStats(categoryId).collect {
+                categoryWithStats.value = it
+                updateQuestionViewStates()
+            }
+        }
+
+        viewModelScope.launch {
+            categoryWithStats.collect {
+                updateQuestionViewStates()
+            }
+        }
+    }
 
     private var isLanguageSwapped = false
 
     fun swapLanguage() {
         isLanguageSwapped = !isLanguageSwapped
-        updateQuestionsWithStats()
+        updateQuestionViewStates()
     }
 
-    fun setCategoryId(categoryId: Int) {
-        category = categoriesRepository.getCategoryById(categoryId)
-        updateQuestionsWithStats()
-    }
 
-    private fun updateQuestionsWithStats() {
-        _questionsWithStats.value = category.questions.map {
-            if (isLanguageSwapped) {
-                QuestionWithStats(it.russian, it.english, false, false)
-            } else {
-                QuestionWithStats(it.english, it.russian, false, false)
+    private fun updateQuestionViewStates() {
+        _questionViewStates.value = categoryWithStats.value?.questions?.map { (question, stats) ->
+            val status = when {
+                stats.correctCount > 0 -> QuestionStatus.LEARNED
+                stats.failedCount > 0 -> QuestionStatus.FAILED
+                else -> QuestionStatus.NOT_STARTED
             }
-        }
+
+            if (isLanguageSwapped) {
+                QuestionViewState(
+                    question = question.russian,
+                    answer = question.english,
+                    status = status
+                )
+            } else {
+                QuestionViewState(
+                    question = question.english,
+                    answer = question.russian,
+                    status = status
+                )
+            }
+        } ?: emptyList()
+    }
+
+    fun start() {
+
     }
 }
