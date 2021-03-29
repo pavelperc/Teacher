@@ -4,8 +4,10 @@ import com.example.teacher.R
 import com.example.teacher.TeacherApplication
 import com.example.teacher.domain.*
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 
 
 class CategoriesRepository {
@@ -16,33 +18,33 @@ class CategoriesRepository {
     private val questionStatsDao = AppDatabase.get().questionStatsDao()
     private val categoryStatsDao = AppDatabase.get().categoryStatsDao()
 
-    fun getCategories() = categoriesCache ?: loadCategories().also { categoriesCache = it }
+    suspend fun getCategories() = categoriesCache ?: loadCategories().also { categoriesCache = it }
 
-    fun getCategoryById(categoryId: Int) = getCategories()[categoryId]
+    suspend fun getCategoryById(categoryId: Int) = getCategories()[categoryId]
 
-    private fun loadCategories(): List<Category> {
-        val context = TeacherApplication.get()
-        val inputStream = context.resources.openRawResource(R.raw.questions)
+    private suspend fun loadCategories(): List<Category> =
+        withContext(Dispatchers.IO) {
+            val context = TeacherApplication.get()
+            val inputStream = context.resources.openRawResource(R.raw.questions)
+            val table = inputStream
+                .use { csvReader().readAll(it) }
+                .drop(1)
 
-        val table = inputStream
-            .use { csvReader().readAll(it) }
-            .drop(1)
-
-        var currentCategory = ""
-        return table
-            .groupBy { (cat, _, _) ->
-                if (cat.isNotBlank()) {
-                    currentCategory = cat
+            var currentCategory = ""
+            table
+                .groupBy { (cat, _, _) ->
+                    if (cat.isNotBlank()) {
+                        currentCategory = cat
+                    }
+                    currentCategory
                 }
-                currentCategory
-            }
-            .entries.mapIndexed { index, (name, questionRows) ->
-                val questions = questionRows.mapIndexed { questionIndex, (_, eng, rus) ->
-                    Question(questionIndex, eng, rus)
+                .entries.mapIndexed { index, (name, questionRows) ->
+                    val questions = questionRows.mapIndexed { questionIndex, (_, eng, rus) ->
+                        Question(questionIndex, eng, rus)
+                    }
+                    Category(index, name, questions)
                 }
-                Category(index, name, questions)
-            }
-    }
+        }
 
     fun observeCategoryWithStats(categoryId: Int): Flow<CategoryWithStats> =
         questionStatsDao.observeAllForCategory(categoryId).map { statsList ->
